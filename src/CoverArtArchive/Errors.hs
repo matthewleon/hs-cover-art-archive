@@ -38,13 +38,13 @@ statusCodeToImageError _   = Nothing
 data QueryError a = QueryError (Maybe a) ServantError
 
 mkListingQueryError :: ServantError -> QueryError ListingError
-mkListingQueryError err@(FailureResponse status _ _)
+mkListingQueryError err@(FailureResponse _ status _ _)
   | code <- statusCode status
   = QueryError (statusCodeToListingError code) err
 mkListingQueryError err = QueryError Nothing err
 
 mkImageQueryError :: ServantError -> QueryError ImageError
-mkImageQueryError err@(FailureResponse status _ _)
+mkImageQueryError err@(FailureResponse _ status _ _)
   | code <- statusCode status
   = QueryError (statusCodeToImageError code) err
 mkImageQueryError err = QueryError Nothing err
